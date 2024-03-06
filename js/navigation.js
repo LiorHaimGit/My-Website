@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <span>Home</span>
             </a>
             <a href="./blog.html">
-                <img src="images/icons/blog_icon_d.png" alt="Blog">
+                <img src="images/icons/blog_icon.png" alt="Blog">
                 <span>Blog</span>
             </a>
             <a href="./about.html">
