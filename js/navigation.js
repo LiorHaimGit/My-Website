@@ -6,7 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 <span>Home</span>
             </a>
             <a href="./blog.html">
+<<<<<<< HEAD
                 <img src="images/icons/blog_icon.png" alt="Blog">
+=======
+                <img src="images/icons/blog_icon_d.png" alt="Blog">
+>>>>>>> 2d6e5376043d1b904599d2ea71b2fe5702283e68
                 <span>Blog</span>
             </a>
             <a href="./about.html">
