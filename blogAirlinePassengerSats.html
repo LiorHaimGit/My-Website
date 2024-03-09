@@ -1,0 +1,461 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/navigation.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<div id="navigation"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+<div class="blogTitle">
+    <p>Machine Learning and Data Science - Airline Passenger Satisfaction Classification</p>
+</div>
+<div class="blogSubtitle">
+    <p>
+        From the moment I first encountered the concept of machine learning at a conference I attended, I fell in love
+        with it.
+        The simplicity of the algorithms and the astonishing results they produce are truly remarkable.
+        Since then and to this day, I consistently strive to stay updated on the latest methods and breakthroughs in the
+        field of AI.
+    </p>
+</div>
+<div class="blogPhotoText">
+    <div class="blogPhoto">
+        <img src="images/airplane_intro.webp" alt="Airplane">
+    </div>
+    <div class="blogText">
+        <p>
+            I would like to showcase one of the fundamental yet incredibly useful machine learning algorithms: the
+            classifier.
+            In this demonstration, I will illustrate how to tackle a problem from the scratch, integrating both data
+            science and machine learning development.
+            With an abundance of data available online for such purposes, we will examine step by step the nature of the
+            data, the insights we can derive from it, and our approach to finding a solution.
+        </p>
+        <p>
+            For this demonstration, I have utilized the Airline Passenger Satisfaction dataset from Kaggle as our
+            classification data.
+        <p>
+            <a href="https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction/" target="_blank"
+                style="color: rgb(99, 173, 192); text-decoration: none;">
+                <span><u>Kaggle data source</u></span>
+            </a>
+        </p>
+    </div>
+</div>
+<section class="blogDivider">
+    <img src="images/subdivider.png" alt="Description of photo">
+</section>
+<div class="blog">
+    <p>Alright, let's dive in! </p>
+    <p>
+        This dataset contains an airline passenger satisfaction survey.
+        We aim to accomplish two main objectives:
+    <ol>
+        <li>Identify the factors that have a strong correlation with passenger satisfaction or dissatisfaction.</li>
+        <li>Predict passenger satisfaction based on these factors.</li>
+    </ol>
+    </p>
+    <strong> Data Cleaning</strong>
+    <p>
+        The initial phase of any machine learning or data science project involves data cleaning.
+        We begin by examining the data for any missing elements,
+        such as 'NaN' values.
+        We also look for any unwanted text that shouldn't be present.
+        We'll search for empty spaces and any other discrepancies.
+    </p>
+    <p>
+        Once we identify these discrepancies, we need to strategize on how to handle them.
+        We can't leave them as they are because our model won't be able to process them.
+        Therefore, we need to address these issues ourselves.
+        For each type of data, we need to consider the most effective solution.
+        For instance, if we have a column of numerical values representing human heights,
+        we could substitute any missing values with the average of the entire column.
+        Any other intelligent handling of these discrepancies would also be beneficial.
+    </p>
+    <p>
+        The final aspect we'll address in this example pertains to handling data that is textual rather than numerical.
+        By default, our model won't know how to process text data.
+        Therefore, we might want to convert it into a format the model can understand.
+        For instance, in the 'Gender' column, we have 'Male' and 'Female'. We might consider replacing these with '0'
+        and '1'.
+        This is the next consideration we need to make before proceeding.
+    </p>
+    <p>I found this function from sklearn library very usfull</p>
+    <pre style="font-size: 18px;padding: 5px; background-color: rgb(0, 0, 0);">
+        <code class="language-python">
+            from sklearn.preprocessing import LabelEncoder
+            
+            # Create a label encoder
+            le = LabelEncoder()
+
+            # Fit the encoder and transform the 'Gender' column
+            train_data['Gender'] = le.fit_transform(train_data['Gender'])
+        </code>
+    </pre>
+
+    <strong>Feature Selection</strong>
+    <p>
+        The subsequent phase involves feature selection, a crucial step in any machine learning project.
+        The design of this stage essentially determines the robustness of our model.
+        Hence, it requires careful consideration and planning.
+    </p>
+    <p>
+        Incorporating all the features we possess could result in a bulky model that performs inefficiently and
+        sluggishly.
+        Overfitting might occur, causing us to over-train our model.
+        Therefore, it's crucial to thoughtfully select our features.
+        We should avoid including irrelevant features or those that convey the same information as other features in the
+        dataset.
+        Let's begin by examining our features more closely,
+        which will give us a better understanding of what feature selection entails.
+    </p>
+    <table>
+        <tr>
+            <td>Number </td>
+        </tr>
+        <tr>
+            <td>id </td>
+        </tr>
+        <tr>
+            <td>Gender </td>
+        </tr>
+        <tr>
+            <td>Customer Type </td>
+        </tr>
+        <tr>
+            <td>Age </td>
+        </tr>
+        <tr>
+            <td>Type of Travel </td>
+        </tr>
+        <tr>
+            <td>Class </td>
+        </tr>
+        <tr>
+            <td>Flight Distance </td>
+        </tr>
+        <tr>
+            <td>Inflight wifi service </td>
+        </tr>
+        <tr>
+            <td>Departure/Arrival time convenient</td>
+        </tr>
+        <tr>
+            <td>Ease of Online booking </td>
+        </tr>
+        <tr>
+            <td>Gate location </td>
+        </tr>
+        <tr>
+            <td>Food and drink </td>
+        </tr>
+        <tr>
+            <td>Online boarding </td>
+        </tr>
+        <tr>
+            <td>Seat comfort </td>
+        </tr>
+        <tr>
+            <td>Inflight entertainment </td>
+        </tr>
+        <tr>
+            <td>On-board service </td>
+        </tr>
+        <tr>
+            <td>Leg room service </td>
+        </tr>
+        <tr>
+            <td>Baggage handling </td>
+        </tr>
+        <tr>
+            <td>Checkin service </td>
+        </tr>
+        <tr>
+            <td>Inflight service </td>
+        </tr>
+        <tr>
+            <td>Cleanliness </td>
+        </tr>
+        <tr>
+            <td>Departure Delay in Minutes </td>
+        </tr>
+        <tr>
+            <td>Arrival Delay in Minutes </td>
+        </tr>
+    </table>
+    <p>
+        Upon examining the table,
+        it's evident that two features - the 'Number' and the 'ID' - bear no relevance to the problem at hand.
+    </p>
+    <pre style="font-size: 18px;padding: 5px; background-color: rgb(0, 0, 0);">
+        <code class="language-python">
+            # Ignor the following data
+            train_data = train_data.drop(columns=['number'])
+            train_data = train_data.drop(columns=['id'])
+        </code>
+    </pre>
+    <p>
+        However, the significance of the remaining features is less clear.
+        Do they all carry equal weight, or do some have a greater impact on our results than others?
+    </p>
+
+    <p>
+        To answer this, I always employ decision trees.
+        This tool not only serve as algorithms capable of tackling classification and regression problems,
+        but it also offer insight into the importance of each feature.
+        This dual functionality makes decision trees an invaluable asset when determining which features are most
+        critical to our analysis.
+    </p>
+    <pre style="font-size: 18px;padding: 5px; background-color: rgb(0, 0, 0);">
+        <code class="language-python">
+            # Get feature importance
+            importances = clf.feature_importances_
+            feature_names = train_data.drop('target', axis=1).columns
+            importance_list = list(zip(importances, feature_names))
+            importance_list.sort(reverse=True)
+        </code>
+    </pre>
+    <p>Let's print the results and take a look:</p>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Online boarding</td>
+            <td>0.479622978296455</td>
+        </tr>
+        <tr>
+            <td>Inflight wifi service</td>
+            <td>0.22387010290754022</td>
+        </tr>
+        <tr>
+            <td>Type of Travel</td>
+            <td>0.17283350026142205</td>
+        </tr>
+        <tr>
+            <td>Inflight entertainment</td>
+            <td>0.06346673055212819</td>
+        </tr>
+        <tr>
+            <td>Checkin service</td>
+            <td>0.021766834855264372</td>
+        </tr>
+        <tr>
+            <td>Class</td>
+            <td>0.020414817153883814</td>
+        </tr>
+        <tr>
+            <td>Customer Type</td>
+            <td>0.011442727758241133</td>
+        </tr>
+        <tr>
+            <td>Gate location</td>
+            <td>0.004374484445353232</td>
+        </tr>
+        <tr>
+            <td>Arrival Delay in Minutes</td>
+            <td>0.001364397879620831</td>
+        </tr>
+        <tr>
+            <td>Cleanliness</td>
+            <td>0.0004258813485360942</td>
+        </tr>
+        <tr>
+            <td>Ease of Online booking</td>
+            <td>0.00041632084001633565</td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td>1.2237015386838494e-06</td>
+        </tr>
+        <tr>
+            <td>Seat comfort</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>On-board service</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Leg room service</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Inflight service</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Food and drink</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Flight Distance</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Departure/Arrival time convenient</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Departure Delay in Minutes</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>Baggage handling</td>
+            <td>0.0</td>
+        </tr>
+    </table>
+    <p>Isn't it remarkable? </p>
+    <p>
+        A glance at the table suggests that we've achieved our initial objective - identifying the most crucial
+        features.
+        It appears that 'online boarding' is of utmost importance,
+        followed closely by 'inflight WiFi service' and the 'type of travel'.
+    <p>Other significant factors include 'inflight entertainment', 'check-in service', and 'class', as well as 'customer
+        type'.</p>
+    <p>On the other end of the spectrum, we have features like 'gate location', 'arrival delay', 'cleanliness', and
+        'ease of online booking'.</p>
+    <p>Age also contributes to some extent, but when compared to the first feature on the list, its relative importance
+        is negligible, standing at 1E-6.
+        Therefore, we can safely deem it as non-essential to our classifier.
+    </p>
+    <p>This could potentially explain why the seats might not be as comfortable as expected and why the food doesn't
+        quite reach Michelin quality :).</p>
+    <br></br>
+    <section class="blogDivider">
+        <img src="images/subdivider.png" alt="Description of photo">
+    </section>
+    <br></br>
+    <strong>Classifier Designing</strong>
+    <p>
+        Now that we've honed in on our features, let's proceed with designing the classifier.
+    </p>
+
+    <p>
+        I usually start with a basic model and progressively enhance its complexity if the outcomes are unsatisfactory.
+        Moreover, I print out some data during the training process to monitor the model's convergence and identify any
+        potential issues.
+    </p>
+    <p>For example, this is what i got for the first run:</p>
+    <pre style="font-size: 18px;padding: 5px; background-color: rgb(0, 0, 0);">
+        <code class="language-python">
+            Epoch [1/10], Loss: nan, Accuracy: 56.67%, Elapsed Time: 2.66s, Estimated Time Remaining: 46.69s
+            Epoch [1/10], Loss: nan, Accuracy: 56.67%, Elapsed Time: 5.28s, Estimated Time Remaining: 103.73s
+            Epoch [1/10], Loss: nan, Accuracy: 56.67%, Elapsed Time: 7.93s, Estimated Time Remaining: 122.38s
+        </code>
+    </pre>
+    <p>When encountering this issue, I needed to determine its cause.
+        There are several potential factors that could lead to it:</p>
+    <ul>
+        <li>The model may not be suitable for this problem.</li>
+        <li>There could be issues with the data.</li>
+        <li>Bugs in the code may also be responsible.</li>
+    </ul>
+    <p>
+        The issue stemmed from one of the data features, 'Arrival Delay in Minutes', which contained blank cells.
+        I opted to remove these cells rather than creating new ones with data.
+        This decision was based on the feature importances, as it received a low score.
+    </p>
+    <p>
+        I designed a simple fully connected model with three hidden layers, each consisting of 32 neurons.
+    </p>
+    <div style="display: flex; justify-content: center;">
+        <img src="images/fullyConecctedModel.jpeg" alt="Training Model">
+    </div>
+    <p>So, after writing some code, fixing bugs, and selecting data, the training has now begun:</p>
+    <pre style="font-size: 18px;padding: 5px; background-color: rgb(0, 0, 0);">
+        <code class="language-python">
+            Epoch [1/10], Loss: 0.3901, Accuracy: 82.60%, Elapsed Time: 2.68s, Estimated Time Remaining: 46.84s
+            Epoch [1/10], Loss: 0.3880, Accuracy: 86.19%, Elapsed Time: 5.21s, Estimated Time Remaining: 104.77s
+            Epoch [1/10], Loss: 0.2508, Accuracy: 87.62%, Elapsed Time: 7.76s, Estimated Time Remaining: 120.46s
+        </code>
+    </pre>
+
+
+    <br></br>
+    <section class="blogDivider">
+        <img src="images/subdivider.png" alt="Description of photo">
+    </section>
+    <br></br>
+    <strong>Model Testing</strong>
+    <p>
+        Once the training process is complete, we will proceed to validate our model using the test data.
+        We will generate and examine various graphs and metrics to evaluate the performance and effectiveness of our
+        model.
+    </p>
+
+    <pre style="font-size: 18px;padding: 5px; background-color: rgb(0, 0, 0);">
+        <code class="language-python">
+            raining Data Classification Report:
+            precision    recall  f1-score   support
+
+         0       0.96      0.95      0.96     58879
+         1       0.94      0.94      0.94     45025
+
+  accuracy                           0.95    103904
+ macro avg       0.95      0.95      0.95    103904
+weighted avg       0.95      0.95      0.95    103904
+
+Testing Data Classification Report:
+            precision    recall  f1-score   support
+
+         0       0.96      0.95      0.96     14573
+         1       0.94      0.95      0.94     11403
+
+  accuracy                           0.95     25976
+ macro avg       0.95      0.95      0.95     25976
+weighted avg       0.95      0.95      0.95     25976
+        </code>
+    </pre>
+
+    <p>Based on the classification reports, our model seems to be performing quite well on both the training and testing data. 
+        Here's a brief explanation of the metrics:</p>
+
+    <ul>
+        <li><strong>Precision:</strong> This is the ratio of correctly predicted positive observations to the total predicted positives. High precision relates to the low false positive rate. Our model has high precision (0.94-0.96), which is good.</li>
+        <li><strong>Recall (Sensitivity):</strong> This is the ratio of correctly predicted positive observations to the all observations in actual class. Our model has high recall (0.94-0.95), which is good.</li>
+        <li><strong>F1 score:</strong> This is the weighted average of Precision and Recall. Therefore, this score takes both false positives and false negatives into account. Our model has high F1 score (0.94-0.96), which is good.</li>
+        <li><strong>Support:</strong> This is the number of samples of the true response that lie in that class. The reported averages include macro average (averaging the unweighted mean per label), weighted average (averaging the support-weighted mean per label), and sample average (only for multilabel classification).</li>
+        <li><strong>Accuracy:</strong> This is the ratio of correctly predicted observation to the total observations. Our model has high accuracy (0.95), which is good.</li>
+    </ul>    
+
+    <p>The graph shown below represents  the confusion matrix.    </p>
+    <section class="blogDivider">
+        <img src="images/confusionMatrix.png" alt="Description of photo">
+    </section>
+    <p>The graph shown below represents  the Receiver Operating Characteristic (ROC) curve.</p>
+    <section class="blogDivider">
+        <img src="images/rocCurve.png" alt="Description of photo">
+    </section>
+    <p>The graph shown below represents  the Precision-Recall curve.    </p>
+    <section class="blogDivider">
+        <img src="images/precisionRecallCurve.png" alt="Description of photo">
+    </section>
+
+    <p>Overall, based on these metrics and graphs, our model seems to be doing a good job! 😊</p>
+
+
+    <p>
+        I trust that this post serves as a helpful primer on designing classification models. 
+        However, bear in mind that this is merely a starting point, and there's a wealth of deeper concepts to explore. 
+        There are a multitude of topics to investigate and an abundance of intriguing possibilities for application and analysis.
+    </p>
+    <p>
+        Thank you for reading! Please don't hesitate to reach out if you have any questions or need further information.
+    </p>
+    <p> The link to the source code can be found on my GitHub page:
+        <a href="https://github.com/LiorHaimGit/Sound-filtering/" target="_blank"
+            style="color: rgb(99, 173, 192); text-decoration: none;">
+            <span><u>GitHub Repository</u></span>
+            <img src="images/icons/github_icon_d.png" width="30" alt="GitHub Icon">
+        </a>
+</div>
