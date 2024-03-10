@@ -23,14 +23,12 @@ body {
     font-size: 35px;
     opacity: 0;
     animation: fadeIn 2s ease-in-out forwards;
-    animation-delay: 0s;
 }
 .title2 {
     flex: 1;
     font-size: 30px;
     opacity: 0;
     animation: fadeIn 0.0s ease-in-out forwards;
-    animation-delay: 0s;
 }
 .links {
     flex: 2;
@@ -48,7 +46,6 @@ body {
     display: inline-block;
     opacity: 0;
     animation: fadeIn 0.0s ease-in-out forwards;
-    animation-delay: 0s;
 }
 .links a img {
     width:  30px;
