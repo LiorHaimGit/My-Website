@@ -38,9 +38,9 @@ body {
     width: 100%;
 }
 .links a {
-    color: #ccc; /* Light color for links */
+    color: #ccc; 
     position: relative;
-    text-decoration: none; /* Remove underline from links */
+    text-decoration: none;
     width:  35px;
     height: 35px;
     display: inline-block;
@@ -52,8 +52,8 @@ body {
     height: 30px;
 }
 .links a img:hover {
-    width:  35px;
-    height: 35px;
+    width:  38px;
+    height: 38px;
 }
 .links a span {
     position: absolute;
