@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", function() {
             <a href="./index.html">
                 <img src="images/icons/home_icon_d.png" alt="Home">
                 <span>Home</span>
-            </a>
-            <a href="./blog.html">
-                <img src="images/blog_icon.png" alt="B">
-                <span>Blog</span>
-            </a>
+            </a>            
             <a href="./about.html">
                 <img src="images/icons/about_icon_d.png" alt="My Story">
                 <span>My Story</span>
+            </a>
+            <a href="./blog.html">
+                <img src="images/icons/home_icon_d.png" alt="B">
+                <span>Blog</span>
             </a>            
             <a href="./resume.html">
                 <img src="images/icons/resume_icon_d.png" alt="Resume">
