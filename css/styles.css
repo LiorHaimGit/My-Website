@@ -291,7 +291,7 @@ body {
 }
 
 /* Mobile-specific styles */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 400px) {
     .title {
         font-size: 24px;
     }
