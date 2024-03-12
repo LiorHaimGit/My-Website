@@ -289,3 +289,18 @@ body {
 .language-python{
     background-color: #000000;
 }
+
+/* Mobile-specific styles */
+@media screen and (max-width: 600px) {
+    .title {
+        font-size: 24px;
+    }
+    .title2 {
+        font-size: 20px;
+    }
+    .links a {
+        width: 30px;
+        height: 30px;
+    }
+    /* Adjust other styles as needed */
+}
