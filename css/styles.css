@@ -237,6 +237,7 @@ body {
 }
 .blog {
     font-size: 20px;
+    overflow-x: hidden;
 }
 .blogDivider{
     opacity: 0;
@@ -290,17 +291,11 @@ body {
     background-color: #000000;
 }
 
-/* Mobile-specific styles */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
+    /* Styles for smaller screens */
+    /* Example: Reduce padding or margins */
     .title {
-        font-size: 24px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
-    .title2 {
-        font-size: 20px;
-    }
-    .links a {
-        width: 30px;
-        height: 30px;
-    }
-    /* Adjust other styles as needed */
 }
